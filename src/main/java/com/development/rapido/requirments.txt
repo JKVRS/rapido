@@ -1,0 +1,55 @@
+Physical :-
+Models :- USERS, VEHICLES
+Features : -
+1. A user can have role to convert as a driver.
+2. User can sing up and login.(based on role).
+3. customer will put source and destination and vehicle type.
+4. Nearest drivers should get the request if he is not available than it will go to the second nearest driver.
+5. After booking the vehicle details should show to the end user.
+6. ETA of rider will be shown to the end user.
+7. Trip start and end should be done by rider.
+8.  End user can cancel the booking.
+9. After completing the trip , trip summary shared with the end users.
+10. End use can view riding history.
+
+---------------------------------------------------------------------------------------------------
+
+Class User{
+   String email
+   Long phone
+   String name
+   List<RideSummery> ridesHistory;
+   UserType userType;
+   Ride  currentride;
+
+
+}
+Class Customer extends User{
+
+
+
+}
+Class Rider extends User{
+     RiderStatus riderStatus;
+     List<Ride> rideRequst;
+     Vehicle vehicle;
+
+}
+
+Class Vehicle{
+     User user;
+     String vehicleName;
+     String vehicleType;
+     int vehicleNumber;
+     String vehicleColor;
+
+}
+Class Ride{
+   Customer cusotmer;
+   Rider rider;
+   Vehicle vehicle;
+   Stirng soruce;
+   String destination;
+
+}
+
