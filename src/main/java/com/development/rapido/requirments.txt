@@ -20,20 +20,32 @@ Class User{
    String name
    List<RideSummery> ridesHistory;
    UserType userType;
-   Ride  currentride;
+   Ride  currentRide;
+   String password;
 
 
 }
+
+enum UserType{
+  CUSTOMER, RIDER
+}
+
 Class Customer extends User{
 
 
-
 }
+
 Class Rider extends User{
      RiderStatus riderStatus;
-     List<Ride> rideRequst;
+     List<Ride> rideRequest;
+
      Vehicle vehicle;
 
+}
+
+enum RiderStatus
+{
+  AVAILABLE, LOCKED, BOOKED
 }
 
 Class Vehicle{
@@ -42,14 +54,94 @@ Class Vehicle{
      String vehicleType;
      int vehicleNumber;
      String vehicleColor;
+     int capacity;
+     int currentCapacity;
 
 }
 Class Ride{
-   Customer cusotmer;
+   Customer customer;
    Rider rider;
    Vehicle vehicle;
-   Stirng soruce;
-   String destination;
+   Location source;
+   Location destination;
+   Date requestAt;
+   Double tripFare;
+   int totalPassengers;
 
 }
+class RideSummary extends Ride{
+      List<Payment> payment;
+
+}
+class Location{
+  double latitude;
+  double longitude;
+}
+class LocationMap{
+  String placeName;
+  Location location;
+}
+class Payment{
+   String referenceNumber;
+   PaymentMethod paymentMethod;
+   double amount;
+   PaymentType paymentType ;
+   PaymentStatus status;
+
+}
+enum PaymentMethod{
+  ONLINE, CASH, UPI;
+}
+enum PaymentType{
+     CAPTURED, REFUND, CANCELLED
+}
+enum PaymentStatus{
+   SUCCESS, FAILED, PROGRESS
+}
+
+interface FareCalculateStrategy{
+  double calculateFare(Ride ride);
+}
+class calculateFareBasedOnRideStrategy{
+    double calculateFare(Ride ride){
+
+    }
+}
+
+----------------------------------------------------------------------------------------------------------
+
+Schema Design :-
+
+Users  :       id , name, email, password, address, phone, userType , rideId,
+
+Customers :    customerId, UserID
+
+Riders :       RidersId, UserId, vehicleId
+
+Vehicles :     Id, vehicleNumber, VehicleName, vehicleColor, capacity, CurrentCapacity, userid
+
+Location :     id,  Latitude, longitude
+
+LocationMap :  id, placeName, locationId
+
+Rides  :       RideID, RidersId
+
+RideSummary :  id, userId, vehicleId, locationId, requestedAt, totalPassengers, totalamount
+
+Payment :      id, referenceNumber, amount
+
+PaymentStatus : id, status
+
+PaymentType  :  id , payment
+
+PaymentMethod : id, paymentMethod
+
+RiderStatus :   id, riderStatus
+
+UserType:       id, type
+
+
+
+
+
 
